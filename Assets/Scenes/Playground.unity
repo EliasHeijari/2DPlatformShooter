@@ -482,6 +482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 651971917}
   - component: {fileID: 651971916}
+  - component: {fileID: 651971918}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -501,17 +502,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7114b7e87c4a3a240a6e871687f08599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5.5
-  jumpForce: 6
-  gravity: 9.81
-  capsuleCastRadius: 1
-  castDistance: 0.025
-  castHeight: {x: 0, y: 0}
-  groundCheckRadius: 0.5
-  groundCheck: {fileID: 1307903887}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!4 &651971917
 Transform:
   m_ObjectHideFlags: 0
@@ -529,6 +519,27 @@ Transform:
   - {fileID: 1307903887}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &651971918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651971915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dd2270bace00524ba996397f70da1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DebugMode: 1
+  groundCheck: {fileID: 1307903887}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  moveSpeed: 6
+  jumpForce: 6
+  castDistance: 0.05
+  groundCheckRadius: 0.5
 --- !u!1 &718750016
 GameObject:
   m_ObjectHideFlags: 0
