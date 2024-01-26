@@ -21,8 +21,13 @@ public class PlayerAnimatorController : MonoBehaviour
         Player.OnPlayerDying += Player_OnPlayerDyingAction;
     }
 
+    private void OnDisable() {
+        Player.OnPlayerDying -= Player_OnPlayerDyingAction;
+        Player.OnPlayerTakeDamage -= Player_OnTakeDamageAction;
+    }
+
     private void Player_OnPlayerDyingAction(object sender, EventArgs e){
-        animator.SetTrigger(triggerDead);
+        animator.SetTrigger(triggerDead); 
     }
     private void Player_OnTakeDamageAction(object sender, EventArgs e){
         animator.SetTrigger(triggerHurt);

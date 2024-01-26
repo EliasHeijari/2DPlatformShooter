@@ -4,15 +4,34 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using NaughtyAttributes;
 
 public class Player : MonoBehaviour, IDamageable
 {
     PlayerMovement playerMovement;
-    public int Health { get; private set; } = 10;
+
+    [SerializeField] private bool DebugMode = true;
+    [Space]
+    [HorizontalLine(2f, EColor.White)]
+    [ProgressBar("Health", 100, EColor.Red)]
+    [SerializeField] private int health; 
+    public int Health {
+        get {
+            return health;
+        }
+        set {
+            health = value;
+            if (health <= 0){
+                health = 0;
+                OnPlayerDying?.Invoke(this, EventArgs.Empty);
+            }
+        }
+    }
     public static event EventHandler OnPlayerDying;
     public static event EventHandler OnPlayerTakeDamage;
     private void Awake(){
         playerMovement = GetComponent<PlayerMovement>();
+        Health = 100;
     }
 
     private void Start() {
@@ -21,20 +40,19 @@ public class Player : MonoBehaviour, IDamageable
 
     private void OnPlayerDying_Action(object sender, EventArgs e){
         playerMovement.enabled = false;
-        this.enabled = false;
         OnPlayerDying -= OnPlayerDying_Action;
     }
 
     private void FixedUpdate() {
         playerMovement.HandleMovement();
     }
-
+    [ShowIf("DebugMode")]
+    [Button("Damage", EButtonEnableMode.Always)]
+    public void TestDamage(){
+        TakeDamage(10);
+    }
     public void TakeDamage(int damage){
         Health -= damage;
         OnPlayerTakeDamage?.Invoke(this, EventArgs.Empty);
-        if (Health <= 0){
-            Health = 0;
-            OnPlayerDying?.Invoke(this, EventArgs.Empty);
-        }
     }
 }
