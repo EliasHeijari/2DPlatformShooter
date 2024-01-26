@@ -46,5 +46,16 @@ public class PlayerMovement : MonoBehaviour
 
         // Add Force to the rigidbody
         rigidBody.velocity = velocity;
+
+        // Change Player Rotation, look left or right
+        switch(velocity.x){
+            case > 0:
+                // Look Right
+                transform.rotation = Quaternion.Euler(transform.rotation.x, 0f, transform.rotation.z);                
+                break;
+            case < 0:
+                transform.rotation = Quaternion.Euler(transform.rotation.x, -180f, transform.rotation.z);
+                break;
+        }
     }
 }

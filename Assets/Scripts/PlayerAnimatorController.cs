@@ -35,15 +35,7 @@ public class PlayerAnimatorController : MonoBehaviour
     private void Update() {
 
         animator.SetFloat(paramVelocity, Mathf.Abs(playerMovement.velocity.x));
-
-        switch(playerMovement.velocity.x){
-            case > 0:
-                spriteRenderer.flipX = false; 
-                break;
-            case < 0:
-                spriteRenderer.flipX = true;
-                break;
-        }
+         
     }
 
 }
