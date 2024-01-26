@@ -29,6 +29,12 @@ public class Player : MonoBehaviour, IDamageable
     }
     public static event EventHandler OnPlayerDying;
     public static event EventHandler OnPlayerTakeDamage;
+    
+    [ShowIf("DebugMode")]
+    [Button("Damage 10", EButtonEnableMode.Playmode)]
+    public void TestDamage(){
+        TakeDamage(10);
+    }
     private void Awake(){
         playerMovement = GetComponent<PlayerMovement>();
         Health = 100;
@@ -40,17 +46,14 @@ public class Player : MonoBehaviour, IDamageable
 
     private void OnPlayerDying_Action(object sender, EventArgs e){
         playerMovement.enabled = false;
+        this.enabled = false;
         OnPlayerDying -= OnPlayerDying_Action;
     }
 
     private void FixedUpdate() {
         playerMovement.HandleMovement();
     }
-    [ShowIf("DebugMode")]
-    [Button("Damage", EButtonEnableMode.Always)]
-    public void TestDamage(){
-        TakeDamage(10);
-    }
+    
     public void TakeDamage(int damage){
         Health -= damage;
         OnPlayerTakeDamage?.Invoke(this, EventArgs.Empty);

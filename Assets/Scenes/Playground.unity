@@ -679,9 +679,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 651971917}
-  - component: {fileID: 651971919}
   - component: {fileID: 651971920}
   - component: {fileID: 651971921}
+  - component: {fileID: 651971919}
   - component: {fileID: 651971922}
   m_Layer: 0
   m_Name: Player
@@ -760,13 +760,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e933a2e2573fd8f469deee876ed6b514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundCheckTransform: {fileID: 1307903887}
   speed: 220
   jumpForce: 3
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   groundCheckRadius: 0.1
+  groundCheckTransform: {fileID: 1307903887}
 --- !u!70 &651971922
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

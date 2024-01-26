@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
-{
-    [Header("References")]
-    [SerializeField] private Transform groundCheckTransform;
-
-    [Header("Movement Settings")]
+{ 
+    [BoxGroup("Movement")]
     [SerializeField] private float speed = 130f;
+    [BoxGroup("Movement")]
     [SerializeField] private float jumpForce = 8f;
 
-    [Header("Ground Check")]
+    [BoxGroup("Ground Check")]
     [SerializeField] private LayerMask groundLayer;
+    [BoxGroup("Ground Check")]
     [SerializeField] private float groundCheckRadius = 0.1f;
+    [BoxGroup("Ground Check")]
+    [Required("Ground Check Transform From Player Bottom")]
+    [SerializeField] private Transform groundCheckTransform;
     bool isGrounded;
     Rigidbody2D rigidBody;
     public Vector2 velocity { get; private set; }
