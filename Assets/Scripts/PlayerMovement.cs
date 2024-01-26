@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     /// Use In FixedUpdate, Get Inputs from Game Input script and uses rigidbody to move this gameobject
     /// </summary>
     public void HandleMovement(){
-        float horizontal = Input.GetAxisRaw("Horizontal");
+        float horizontal = GameInput.HorizontalInput();
 
         // Ground Check
         isGrounded = Physics2D.OverlapCircle(groundCheckTransform.position, groundCheckRadius, groundLayer);
@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         velocity = new Vector2(horizontal * speed * Time.fixedDeltaTime, rigidBody.velocity.y);
 
         // Jump velocity to player
-        if (Input.GetKey(KeyCode.Space) && isGrounded)
+        if (GameInput.JumpPressed() && isGrounded)
         {
             velocity = new Vector2(velocity.x, velocity.y + jumpForce);
         }
