@@ -11,6 +11,7 @@ public class PlayerAnimatorController : MonoBehaviour
     const string paramVelocity = "Velocity";
     const string triggerDead = "Dead";
     const string triggerHurt = "Hurt";
+    const string triggerShoot = "Shoot";
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -19,6 +20,7 @@ public class PlayerAnimatorController : MonoBehaviour
     private void Start(){
         Player.OnPlayerTakeDamage += Player_OnTakeDamageAction;
         Player.OnPlayerDying += Player_OnPlayerDyingAction;
+        Weapon.OnShoot += Weapon_OnShootAction;
     }
 
     private void OnDisable() {
@@ -32,18 +34,13 @@ public class PlayerAnimatorController : MonoBehaviour
     private void Player_OnTakeDamageAction(object sender, EventArgs e){
         animator.SetTrigger(triggerHurt);
     }
+    private void Weapon_OnShootAction(object sender, EventArgs e){
+        animator.SetTrigger(triggerShoot);
+    }
     private void Update() {
 
         animator.SetFloat(paramVelocity, Mathf.Abs(playerMovement.velocity.x));
-
-        switch(playerMovement.velocity.x){
-            case > 0:
-                spriteRenderer.flipX = false; 
-                break;
-            case < 0:
-                spriteRenderer.flipX = true;
-                break;
-        }
+         
     }
 
 }

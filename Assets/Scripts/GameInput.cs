@@ -10,6 +10,7 @@ public class GameInput : MonoBehaviour
     PlayerInputActions playerInputActions;
     static float horizontalInput;
     static bool isJumpPressed;
+    static bool isShootPressed;
     private void Start() {
         if (playerInputActions == null){
             playerInputActions = new PlayerInputActions();
@@ -19,6 +20,8 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.HorizontalMovement.canceled += PlayerHorizontalMovement_Canceled;
         playerInputActions.Player.Jump.performed += PlayerJump_Performed;
         playerInputActions.Player.Jump.canceled += PlayerJump_Canceled;
+        playerInputActions.Player.Shoot.performed += PlayerShoot_Performed;
+        playerInputActions.Player.Shoot.canceled += PlayerShoot_Canceled;
     }
 
     private void PlayerHorizontalMovement_Performed(InputAction.CallbackContext context){
@@ -34,10 +37,28 @@ public class GameInput : MonoBehaviour
     private void PlayerJump_Canceled(InputAction.CallbackContext context){
         isJumpPressed = false;
     }
+    private void PlayerShoot_Performed(InputAction.CallbackContext context){
+        isShootPressed = true;
+    }
+    private void PlayerShoot_Canceled(InputAction.CallbackContext context){
+        isShootPressed = false;
+    }
     public static float HorizontalInput(){
         return horizontalInput;
     }
     public static bool JumpPressed(){
         return isJumpPressed;
+    }
+    public static bool ShootPressed(){
+        return isShootPressed;
+    }
+
+    private void OnDisable() {
+        playerInputActions.Player.HorizontalMovement.performed -= PlayerHorizontalMovement_Performed;
+        playerInputActions.Player.HorizontalMovement.canceled -= PlayerHorizontalMovement_Canceled;
+        playerInputActions.Player.Jump.performed -= PlayerJump_Performed;
+        playerInputActions.Player.Jump.canceled -= PlayerJump_Canceled;
+        playerInputActions.Player.Shoot.performed -= PlayerShoot_Performed;
+        playerInputActions.Player.Shoot.canceled -= PlayerShoot_Canceled;
     }
 }

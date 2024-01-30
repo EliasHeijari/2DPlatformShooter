@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [BoxGroup("Ground Check")]
     [Required("Ground Check Transform From Player Bottom")]
     [SerializeField] private Transform groundCheckTransform;
-    bool isGrounded;
+    public static bool isGrounded { get; private set;}
     Rigidbody2D rigidBody;
     public Vector2 velocity { get; private set; }
    
@@ -38,13 +38,25 @@ public class PlayerMovement : MonoBehaviour
         // horizontal input to velocity
         velocity = new Vector2(horizontal * speed * Time.fixedDeltaTime, rigidBody.velocity.y);
 
-        // Jump velocity to player
+        // Jump to velocity.y
         if (GameInput.JumpPressed() && isGrounded)
         {
             velocity = new Vector2(velocity.x, velocity.y + jumpForce);
         }
 
-        // Add Force to the rigidbody
+        // Update velocity, velocity depending on player inputs
         rigidBody.velocity = velocity;
+
+        // Change Player Rotation, look left or right depending on the direction of movement (Velocity)
+        switch(velocity.x){
+            case > 0:
+                // Player Looks Right
+                transform.rotation = Quaternion.Euler(transform.rotation.x, 0f, transform.rotation.z);                
+                break;
+            case < 0:
+                // Player Looks Left
+                transform.rotation = Quaternion.Euler(transform.rotation.x, -180f, transform.rotation.z);
+                break;
+        }
     }
 }
